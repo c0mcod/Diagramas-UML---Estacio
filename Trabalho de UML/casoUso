@@ -1,5 +1,4 @@
 @startuml
-
 left to right direction
 skinparam packageStyle rectangle
 
@@ -18,12 +17,17 @@ package Instituição {
     (Cadastro de turmas) as ct
     (Gerar relatórios) as gr
     (Notificar alunos) as na
+    (Realizar login) as login
 }
 
 package AlunoInterface {
     (Registrar solicitação) as rs
     (Anexar documento) as anxDoc
     (Acompanhar solicitação) as acomp
+    (Solicitar meio de notificação preferida) as solicNotif
+    (Escolher notificação por email) as emailNotif
+    (Escolher notificação por SMS) as smsNotif
+    (Escolher notificação por push) as pushNotif
 }
 
 package SecretariaInterface {
@@ -39,8 +43,14 @@ package CoordenacaoInterface {
 
 package ProfessorInterface {
     (Responder solicitação) as resSol
+    (Realizar check-in) as checkin
+    (Registrar horário de chegada) as regChegada
+    (Visualizar registro de ponto) as viewPonto
+    (Verificar sala prevista) as verifSala
+    (Confirmar sala correta) as confSalaOk
+    (Reportar sala incorreta) as reportSalaErrada
+    (Solicitar realocação de sala) as solicRealocacao
 }
-
 
 adm --> mc
 adm --> gr
@@ -58,18 +68,19 @@ coord --> gr
 
 prof --> resSol
 prof --> gr
+prof --> checkin
 
 aln --> rs
 aln --> anxDoc
 aln --> acomp
+aln --> login
+aln --> solicNotif
 
 ca -|> cu
 cp -|> cu
-
 cd -|> mc
 ct -|> mc
 cu -|> mc
-
 
 encSol ..> validDoc : <<include>>
 
@@ -77,5 +88,30 @@ anxDoc ..> rs : <<extend>>
 
 aprovSol ..> analise : <<extend>>
 reprSol ..> analise : <<extend>>
+
+solicNotif ..> emailNotif : <<extend>>
+solicNotif ..> smsNotif : <<extend>>
+solicNotif ..> pushNotif : <<extend>>
+
+checkin ..> regChegada : <<extend>>
+checkin ..> viewPonto : <<extend>>
+checkin ..> verifSala : <<include>>
+
+verifSala ..> confSalaOk : <<extend>>
+verifSala ..> reportSalaErrada : <<extend>>
+
+reportSalaErrada ..> solicRealocacao : <<include>>
+
+note top of verifSala
+  O professor deve verificar se a sala
+  disponível corresponde à sala prevista
+  no horário agendado
+end note
+
+note top of login
+  Login é pré-requisito para
+  acesso a todos os outros
+  casos de uso do sistema
+end note
 
 @enduml
