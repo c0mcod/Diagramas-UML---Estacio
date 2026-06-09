@@ -1,25 +1,16 @@
 @startuml
 title Diagrama de Componentes por Camadas - Versao Academica
 
-' ============================================
-' CAMADA 1 - APRESENTACAO
-' ============================================
 rectangle "CAMADA DE APRESENTACAO" as Apresentacao  {
   component "Interface Web" as Web
 }
 
-' ============================================
-' CAMADA 2 - APLICACAO
-' ============================================
 rectangle "CAMADA DE APLICACAO (Controllers)" as Aplicacao  {
   component "Controlador\nSolicitacoes" as CtrlSol
   component "Controlador\nAutenticacao" as CtrlAuth
   component "Controlador\nCheck-in" as CtrlCheck
 }
 
-' ============================================
-' CAMADA 3 - NEGOCIO
-' ============================================
 rectangle "CAMADA DE NEGOCIO (Services)" as Negocio  {
   component "Servico\nSolicitacoes" as SvcSol
   component "Servico\nAutenticacao" as SvcAuth
@@ -29,16 +20,10 @@ rectangle "CAMADA DE NEGOCIO (Services)" as Negocio  {
   component "Servico\nDocumentos" as SvcDoc
 }
 
-' ============================================
-' CAMADA 4 - DADOS
-' ============================================
 rectangle "CAMADA DE DADOS" as Dados  {
   component "Banco de Dados\nRelacional" as DB
 }
 
-' ============================================
-' CAMADA 5 - SERVICOS EXTERNOS
-' ============================================
 rectangle "SERVICOS EXTERNOS" as Externo  {
   component "Email" as Email
   component "WhatsApp\nAPI" as Zap
@@ -46,47 +31,29 @@ rectangle "SERVICOS EXTERNOS" as Externo  {
   component "Push" as Push
 }
 
-' ============================================
-' CONEXOES - WEB
-' ============================================
 Web --> CtrlSol
 Web --> CtrlAuth
 Web --> CtrlCheck
 
-' ============================================
-' CONEXOES - CONTROLADORES PARA SERVICOS
-' ============================================
 CtrlSol --> SvcSol
 CtrlAuth --> SvcAuth
 CtrlCheck --> SvcCheck
 
-' ============================================
-' CONEXOES - SERVICOS PARA DADOS
-' ============================================
 SvcSol --> DB
 SvcAuth --> DB
 SvcCheck --> DB
 
 
-' ============================================
-' CONEXOES - SERVICOS ENTRE SI
-' ============================================
 SvcSol --> SvcNotif
 SvcSol --> SvcGrupo
 SvcSol --> SvcDoc
 
-' ============================================
-' CONEXOES - SERVICOS PARA EXTERNOS
-' ============================================
 SvcNotif --> Email
 SvcNotif --> Zap
 SvcNotif --> Push
 SvcGrupo --> Zap
 SvcDoc --> Storage
 
-' ============================================
-' ATORES
-' ============================================
 actor Aluno
 actor Professor
 actor Secretaria
