@@ -4,13 +4,13 @@ Trabalho prático da disciplina de **Modelagens de Sistemas em UML** — Univers
 
 ## Integrantes
 
-| Nome 
+| Nome |
 |------|
-| Daniel Sampaio Silva 
-| Nicolas Levy Felix Araújo
-| João Victor Firmeza Duarte
-| Antônio Carlos da Silva Neto
-| Pedro Miguel Nascimento da Silva Sousa
+| Daniel Sampaio Silva |
+| Nicolas Levy Felix Araújo |
+| João Victor Firmeza Duarte |
+| Antônio Carlos da Silva Neto |
+| Pedro Miguel Nascimento da Silva Sousa |
 
 ---
 
@@ -22,7 +22,6 @@ O problema central é o uso habitual de canais informais (WhatsApp, e-mail) para
 
 ---
 
-
 ## Diagramas Produzidos
 
 ### Diagrama de Caso de Uso
@@ -31,11 +30,20 @@ Representa os atores do sistema (Aluno, Professor, Secretaria, Coordenação, Ad
 ### Diagrama de Classes
 Modela a estrutura estática do sistema com herança a partir da classe `Pessoa`, controle de acesso baseado em funções (RBAC) e as entidades de negócio como `Solicitacao`, `Disciplina`, `Turma` e `Notificacao`.
 
-### Diagrama de Sequência
-Detalha a interação entre objetos no fluxo de **Registrar Solicitação Acadêmica**, mostrando a ordem das mensagens trocadas entre aluno, sistema e banco de dados.
+### Diagrama de Atividades
+Composto por dois fluxos principais. O **Diagrama de Controle de Aulas** representa o fluxo operacional do professor, cobrindo autenticação, check-in, validação de sala e encerramento das atividades, usando swimlanes para distribuir responsabilidades entre Professor, Sistema e Coordenação. O **Diagrama de Solicitação Acadêmica** descreve o ciclo de vida de uma solicitação, desde a abertura pelo aluno até a comunicação do resultado, passando pela validação documental da Secretaria e análise do responsável competente.
 
 ### Diagrama de Estados
-Representa o ciclo de vida de uma solicitação acadêmica, passando pelos status: `Aberta → Em Validação → Em Análise → Respondida → Deferida / Indeferida → Concluída / Cancelada`.
+Representa o ciclo de vida de uma solicitação acadêmica, passando pelos status: `Aberta → Em Validação → Em Análise → Respondida → Deferida / Indeferida → Concluída / Cancelada`. Permite retorno de `Em Validação` para `Aberta` quando um documento é recusado, sem necessidade de reiniciar o processo.
+
+### Diagrama de Sequência
+Detalha a interação entre objetos no fluxo de **Registrar Solicitação Acadêmica**, organizado em arquitetura MVC. Mostra a troca de mensagens entre o Aluno, `TelaSolicitacao`, `SolicitacaoController`, `SolicitacaoService`, as entidades `Solicitacao` e `Documento`, o Banco de Dados e o `SistemaNotificacao`.
+
+### Diagrama de Componentes
+Organiza o sistema em cinco camadas: **Apresentação** (Interface Web), **Aplicação** (controladores de Solicitações, Autenticação e Check-in), **Negócio** (serviços que implementam as regras RN01 a RN12), **Dados** (Banco de Dados Relacional) e **Serviços Externos** (Email, WhatsApp, Push e Cloud Storage).
+
+### Diagrama de Implantação
+Representa a arquitetura física do sistema com quatro nós principais: **Dispositivo do Usuário** (navegador web), **Servidor de Aplicação** (API REST com módulos de Autenticação, Solicitações, Documentos, Notificações e Relatórios), **Banco de Dados** relacional e **Servidor de Arquivos**. As comunicações seguem HTTPS entre navegador e API, SMTP para e-mail e REST API para WhatsApp.
 
 ---
 
