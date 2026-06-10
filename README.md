@@ -83,10 +83,10 @@ Representa o ciclo de vida de uma solicitação acadêmica, passando pelos statu
 - [x] Diagrama de classes
 - [x] Diagrama de sequência
 - [x] Diagrama de estados
-- [ ] Diagrama de atividades
-- [ ] Diagrama de componentes
-- [ ] Diagrama de implantação
-- [ ] Relatório final
+- [x] Diagrama de atividades
+- [x] Diagrama de componentes
+- [x] Diagrama de implantação
+- [x] Relatório final
 
 ---
 
